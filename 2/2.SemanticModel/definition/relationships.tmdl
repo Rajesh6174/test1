@@ -1,0 +1,4 @@
+relationship ee9cb3ce-6f4d-204d-590c-b7ed797c9f7c
+	fromColumn: DT_FACT_ORDER_AGG.DATE_ID
+	toColumn: DIM_DATE.DATE_ID
+

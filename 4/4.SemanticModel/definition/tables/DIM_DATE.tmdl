@@ -1,0 +1,131 @@
+table DIM_DATE
+	lineageTag: 39ba5455-c577-492f-8329-f6eb3e5696ec
+
+	column DATE_ID
+		dataType: double
+		sourceProviderType: decimal(38, 0)
+		lineageTag: d7d3e74e-1c23-41f2-b8f1-b99eabf6d84c
+		summarizeBy: none
+		sourceColumn: DATE_ID
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DATE
+		dataType: dateTime
+		formatString: Long Date
+		sourceProviderType: date
+		lineageTag: 9e149eac-22b3-4c9a-95a2-0a219d86f01a
+		summarizeBy: none
+		sourceColumn: DATE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column YEAR
+		dataType: string
+		sourceProviderType: nvarchar(16777216)
+		lineageTag: 91245ffa-0378-4816-82a4-726ba63e8daf
+		summarizeBy: none
+		sourceColumn: YEAR
+
+		annotation SummarizationSetBy = Automatic
+
+	column MONTH
+		dataType: double
+		sourceProviderType: decimal(38, 0)
+		lineageTag: 5a19092d-c05c-49b4-8a27-5c506f621d67
+		summarizeBy: none
+		sourceColumn: MONTH
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column MONTH_NAME
+		dataType: string
+		sourceProviderType: nvarchar(16777216)
+		lineageTag: 045647a0-e4ae-49cc-811e-1b72ee2a36d4
+		summarizeBy: none
+		sourceColumn: MONTH_NAME
+
+		annotation SummarizationSetBy = Automatic
+
+	column DAY_OF_MONTH
+		dataType: double
+		sourceProviderType: decimal(38, 0)
+		lineageTag: ff19cba3-3a3c-4964-8ad8-f1cc1a016839
+		summarizeBy: none
+		sourceColumn: DAY_OF_MONTH
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DAY_OF_WEEK
+		dataType: double
+		sourceProviderType: decimal(38, 0)
+		lineageTag: 9943b6fe-eb69-46bd-8459-4b3363554d35
+		summarizeBy: none
+		sourceColumn: DAY_OF_WEEK
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column WEEKDAY
+		dataType: string
+		sourceProviderType: nvarchar(16777216)
+		lineageTag: 9caa1cb7-26ee-4a94-9024-81115f162999
+		summarizeBy: none
+		sourceColumn: WEEKDAY
+
+		annotation SummarizationSetBy = Automatic
+
+	column WEEK_OF_YEAR
+		dataType: double
+		sourceProviderType: decimal(38, 0)
+		lineageTag: 8e35f942-719f-4c29-acd5-e882fdf59ee0
+		summarizeBy: none
+		sourceColumn: WEEK_OF_YEAR
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DAY_OF_YEAR
+		dataType: double
+		sourceProviderType: decimal(38, 0)
+		lineageTag: eeef0cdc-1326-4e3c-8d20-34a853c86e82
+		summarizeBy: none
+		sourceColumn: DAY_OF_YEAR
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column WEEKEND_FLAG
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		sourceProviderType: bit
+		lineageTag: 6d9a7f91-a90c-4697-972f-8b708bceb3e4
+		summarizeBy: none
+		sourceColumn: WEEKEND_FLAG
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DIM_DATE = m
+		mode: directQuery
+		source =
+				let
+				    Source = Snowflake.Databases("dn26981.west-us-2.azure.snowflakecomputing.com","compute_wh"),
+				    TB_101_Database = Source{[Name="TB_101",Kind="Database"]}[Data],
+				    POWERBI_Schema = TB_101_Database{[Name="POWERBI",Kind="Schema"]}[Data],
+				    DIM_DATE_Table = POWERBI_Schema{[Name="DIM_DATE",Kind="Table"]}[Data]
+				in
+				    DIM_DATE_Table
+
+	annotation PBI_ResultType = Table
+

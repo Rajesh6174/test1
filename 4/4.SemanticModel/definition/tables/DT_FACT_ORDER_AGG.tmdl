@@ -1,0 +1,115 @@
+table DT_FACT_ORDER_AGG
+	lineageTag: fb167179-e2bf-4881-9417-7d2db28a3681
+
+	column TRUCK_ID
+		dataType: double
+		sourceProviderType: decimal(38, 0)
+		lineageTag: 86bb6968-5efc-4667-8991-f7ccd70fa7dd
+		summarizeBy: count
+		sourceColumn: TRUCK_ID
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column FRANCHISE_ID
+		dataType: double
+		sourceProviderType: decimal(38, 0)
+		lineageTag: 7977e3b3-9b1b-476f-8fee-bbc88eb84fe3
+		summarizeBy: count
+		sourceColumn: FRANCHISE_ID
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column LOCATION_ID
+		dataType: double
+		sourceProviderType: decimal(38, 0)
+		lineageTag: 26f7c596-117f-4e6c-8264-36bda83875ae
+		summarizeBy: count
+		sourceColumn: LOCATION_ID
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CUSTOMER_ID
+		dataType: double
+		sourceProviderType: decimal(38, 0)
+		lineageTag: 4633a3d7-a0e7-4b33-953a-85aa29404f9a
+		summarizeBy: count
+		sourceColumn: CUSTOMER_ID
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DATE_ID
+		dataType: double
+		sourceProviderType: decimal(38, 0)
+		lineageTag: 7af763ea-4bae-4710-9459-01c119064b7b
+		summarizeBy: none
+		sourceColumn: DATE_ID
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ORDER_COUNT
+		dataType: double
+		sourceProviderType: decimal(18, 0)
+		lineageTag: 67ef7a70-11c5-4593-895f-04a3c43b4dbe
+		summarizeBy: sum
+		sourceColumn: ORDER_COUNT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ORDER_LINE_COUNT
+		dataType: double
+		sourceProviderType: decimal(30, 0)
+		lineageTag: b9bba49d-690d-4820-895b-7970d0df834e
+		summarizeBy: sum
+		sourceColumn: ORDER_LINE_COUNT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ORDER_QTY
+		dataType: double
+		sourceProviderType: decimal(29, 0)
+		lineageTag: 056c51cb-17e1-4741-8e85-e992a6ed1e1f
+		summarizeBy: sum
+		sourceColumn: ORDER_QTY
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ORDER_TOTAL
+		dataType: double
+		sourceProviderType: decimal(38, 4)
+		lineageTag: 09e7262c-bdad-4182-8c2d-8dc7015643ed
+		summarizeBy: sum
+		sourceColumn: ORDER_TOTAL
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition DT_FACT_ORDER_AGG = m
+		mode: directQuery
+		source =
+				let
+				    Source = Snowflake.Databases("dn26981.west-us-2.azure.snowflakecomputing.com","compute_wh"),
+				    TB_101_Database = Source{[Name="TB_101",Kind="Database"]}[Data],
+				    POWERBI_Schema = TB_101_Database{[Name="POWERBI",Kind="Schema"]}[Data],
+				    DT_FACT_ORDER_AGG_Table = POWERBI_Schema{[Name="DT_FACT_ORDER_AGG",Kind="Table"]}[Data]
+				in
+				    DT_FACT_ORDER_AGG_Table
+
+	annotation PBI_ResultType = Table
+
